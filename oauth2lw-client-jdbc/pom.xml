@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.bashar.oauth2lw.client</groupId>
-	<artifactId>oauth2lw-client</artifactId>
+	<groupId>com.basharlabadi.oauth2</groupId>
+	<artifactId>oauth2lw-client-jdbc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>oauth2lw-client</name>
+	<name>oauth2lw-client-jdbc</name>
 	<description></description>
 
 	<parent>
@@ -31,10 +31,22 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.bashar.oauth2lw.core</groupId>
+			<groupId>com.basharlabadi.oauth2</groupId>
 			<artifactId>oauth2lw-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<!-- needed for spring boot to auto configure the datasource -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
