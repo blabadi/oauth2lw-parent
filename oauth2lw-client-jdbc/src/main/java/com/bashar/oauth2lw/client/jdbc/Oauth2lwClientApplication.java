@@ -59,6 +59,7 @@ class SecurityConfig2 extends SecurityConfig {
 //            }
 //        });
 
+        //we don't call super here because we want to override the default behaviour from the core lib
     }
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -68,6 +69,9 @@ class SecurityConfig2 extends SecurityConfig {
         //page.
         http.authorizeRequests().antMatchers("/console/**").permitAll()
                 .and().csrf().disable().headers().frameOptions().disable();
+
+        //we called super here because we just wanted to extend the security configs without totally override them
+        //and to keep the default configured form login from spring security web.
         super.configure(http);
     }
 }
@@ -82,6 +86,7 @@ class ResourceConfig2 extends ResourceServer {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenStore(tokenStore);
+        //we call super here because we don't want to reconfigure the resource id
         super.configure(resources);
     }
 
@@ -95,6 +100,7 @@ class ResourceConfig2 extends ResourceServer {
                 .and()
                 .authorizeRequests().antMatchers("/protected/dogs/**").access("#oauth2.hasScope('dogs')");
 
+        // we don't call super here because these eveyr application should implement its own access rules.
     }
 }
 
@@ -113,6 +119,7 @@ class AuthorizationServer2 extends AuthorizationServer {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore());
+        //we called super here to avoid reconfiguring
         super.configure(endpoints);
     }
 
@@ -124,6 +131,9 @@ class AuthorizationServer2 extends AuthorizationServer {
                 .withClient("cats-client").secret("cats-client").scopes("cats").authorizedGrantTypes("authorization_code", "password").redirectUris("http://localhostcats/redirect")
                 .and()
                 .withClient("dogs-client").secret("dogs-client").scopes("dogs").authorizedGrantTypes("authorization_code").redirectUris("http://localhostdogs/redirect");
+
+        //no call for super here because we don't want the core to configure the in memory client for us, we want to override it.
+
     }
 }
 
